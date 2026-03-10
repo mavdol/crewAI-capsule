@@ -1,5 +1,5 @@
 # crewAI-capsule
-CrewAI integration for Capsule — `crewai-capsule` gives CrewAI agents the ability to safely execute tasks in an isolated WebAssembly sandbox. No configuration or network request is necessary to execute the sandboxed tasks.
+CrewAI integration for Capsule — `crewai-capsule` gives CrewAI gives LangChain agents the ability to safely execute Python and javascript code in an isolated WebAssembly sandbox. No configuration or network request is necessary to execute the sandboxes dynamically.
 
 ## Installation
 
