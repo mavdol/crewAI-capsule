@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "crewai-capsule"
 version = "0.1.0"
-description = "Capsule sandbox integration for CrewAI — run code in isolated WebAssembly sandboxes"
+description = "Capsule sandbox integration for CrewAI"
 license = { text = "MIT" }
 readme = "README.md"
 authors = [

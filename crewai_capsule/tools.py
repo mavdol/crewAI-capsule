@@ -1,5 +1,5 @@
 """
-Capsule integration for running untrusted code securely in isolated WebAssembly sandboxes.
+Capsule integration for CrewAI.
 """
 
 import asyncio

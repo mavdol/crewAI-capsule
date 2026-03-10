@@ -37,10 +37,10 @@ def test_parse_error_plain_string():
 async def test_invoke_sandbox_success(run_mock):
     run_mock.return_value = {"success": True, "result": "2", "error": None}
 
-    result = await _invoke_sandbox("any.wasm", "1+1")
+    result = await _invoke_sandbox("any.wasm", "execute_code", "1+1")
 
     assert result == "2"
-    run_mock.assert_called_once_with(file="any.wasm", args=["1+1"])
+    run_mock.assert_called_once_with(file="any.wasm", args=["execute_code", "1+1"])
 
 
 @pytest.mark.asyncio
@@ -52,7 +52,7 @@ async def test_invoke_sandbox_error_raises(run_mock):
     }
 
     with pytest.raises(Exception, match="invalid syntax"):
-        await _invoke_sandbox("any.wasm", "bad code")
+        await _invoke_sandbox("any.wasm", "execute_code", "bad code")
 
 
 # ── Tool wiring ──────────────────────────────────────────────────────
@@ -60,25 +60,25 @@ async def test_invoke_sandbox_error_raises(run_mock):
 @pytest.mark.asyncio
 @patch("crewai_capsule.tools.resources.path")
 async def test_python_tool_uses_correct_wasm(mock_path, run_mock):
-    run_mock.return_value = {"success": True, "result": "ok", "error": None}
+    run_mock.return_value = {"success": True, "result": "x", "error": None}
     mock_path.return_value.__enter__.return_value = "/fake/sandbox_py.wasm"
 
     result = await CapsulePythonREPLTool()._arun("x")
 
-    run_mock.assert_called_once_with(file="/fake/sandbox_py.wasm", args=["x"])
-    assert result == "ok"
+    run_mock.assert_called_once_with(file="/fake/sandbox_py.wasm", args=["execute_code", "x"])
+    assert result == "x"
 
 
 @pytest.mark.asyncio
 @patch("crewai_capsule.tools.resources.path")
 async def test_js_tool_uses_correct_wasm(mock_path, run_mock):
-    run_mock.return_value = {"success": True, "result": "ok", "error": None}
+    run_mock.return_value = {"success": True, "result": "x", "error": None}
     mock_path.return_value.__enter__.return_value = "/fake/sandbox_js.wasm"
 
     result = await CapsuleJSREPLTool()._arun("x")
 
-    run_mock.assert_called_once_with(file="/fake/sandbox_js.wasm", args=["x"])
-    assert result == "ok"
+    run_mock.assert_called_once_with(file="/fake/sandbox_js.wasm", args=["execute_code", "x"])
+    assert result == "x"
 
 
 # ── Sync wrapper ─────────────────────────────────────────────────────
