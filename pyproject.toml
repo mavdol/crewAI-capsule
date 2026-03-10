@@ -1,0 +1,45 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "crewai-capsule"
+version = "0.1.0"
+description = "Capsule sandbox integration for CrewAI — run code in isolated WebAssembly sandboxes"
+license = { text = "MIT" }
+readme = "README.md"
+authors = [
+    {name = "Capsule Contributors"}
+]
+
+classifiers = [
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "capsule-run>=0.6.5",
+    "crewai>=0.80.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/mavdol/capsule"
+Repository = "https://github.com/mavdol/crewAI-capsule"
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-asyncio",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["crewai_capsule"]
+artifacts = ["crewai_capsule/sandboxes/*.wasm"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
